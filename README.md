@@ -5,3 +5,6 @@
 
 ## Desafio 02: Node com Nginx e MySQL
 Repositório git: [Nginx com Node](https://github.com/gaiagalhardo/desafios-full-cycle/tree/master/02-nginx-node-js)
+
+docker-compose up --build
+http://localhost:8080
