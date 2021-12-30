@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: ./node
+    container_name: app
+    networks:
+      - nginx-node-networks
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./mysql
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql/vol:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=peoplesdb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - nginx-node-networks
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    ports:
+      - "8080:80"
+    networks:
+      - nginx-node-networks
+    depends_on:
+      - app
+
+networks:
+  nginx-node-networks:
+    driver: bridge
